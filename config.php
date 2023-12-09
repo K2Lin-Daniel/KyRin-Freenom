@@ -53,6 +53,7 @@ return [
             'corp_id' => env('WECHAT_CORP_ID'), // 企业 ID
             'corp_secret' => env('WECHAT_CORP_SECRET'), // 企业微信应用的凭证密钥
             'agent_id' => (int)env('WECHAT_AGENT_ID'), // 企业微信应用 ID
+            'user_id' => env('WECHAT_USER_ID'), // 企业微信用户ID
             'enable' => (int)env('WECHAT_ENABLE'), // 是否启用，默认不启用
             'not_enabled_tips' => env('WECHAT_CORP_ID') && env('WECHAT_CORP_SECRET') && env('WECHAT_AGENT_ID'), // 提醒未启用
             'class' => \Luolongfei\Libs\MessageServices\WeChat::class,
@@ -87,6 +88,17 @@ return [
             'class' => \Luolongfei\Libs\MessageServices\Bark::class,
             'name' => lang('100068'),
         ],
+
+        /**
+         * PUSH PLUS
+         */
+        'pushplus' => [
+            'pushplus_key' => env('PUSHPLUS_KEY'), // SendKey
+            'enable' => (int)env('PUSHPLUS_ENABLE'), // 是否启用，默认不启用
+            'not_enabled_tips' => (bool)env('PUSHPLUS_KEY'), // 提醒未启用
+            'class' => \Luolongfei\Libs\MessageServices\Pushplus::class,
+            'name' => lang('100136'),
+        ],
     ],
     'custom_language' => env('CUSTOM_LANGUAGE', 'zh'),
     'notice_freq' => (int)env('NOTICE_FREQ', 1), // 通知频率 0：仅当有续期操作的时候 1：每次执行
@@ -94,4 +106,5 @@ return [
     'debug' => (bool)env('DEBUG'),
     'freenom_proxy' => env('FREENOM_PROXY') ?: null, // FreeNom 代理，针对国内网络情况，可选择代理访问
     'new_version_detection' => (bool)env('NEW_VERSION_DETECTION', 1),
+    'max_request_retry_count' => (int)env('MAX_REQUEST_RETRY_COUNT', 32), // 最大请求重试次数
 ];

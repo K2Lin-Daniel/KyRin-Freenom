@@ -22,6 +22,7 @@ return [
         '34520012' => 'You have not configured an email address for incoming mail and may not receive mail. Please change the value corresponding to TO in the .env file to the email address you use most often to receive domain-related emails from the robot email address',
         '34520013' => 'Error getting domain status, error message: %s',
         '34520014' => 'No domain name found under your account %s (%s)',
+        '34520015' => 'The request has been intercepted for human verification and will be retried in %d seconds, with a maximum of %d retries. [%d/%d]',
     ],
     'messages' => [
         '100001' => 'The cookie value named WHMCSZH5eHTGhfvzP could not be obtained, so this login is not valid, please check if your account or password is correct',
@@ -32,9 +33,7 @@ return [
         '100006' => 'Execution error: <red>%s</red>',
         '100007' => 'Cloud function executed successfully.',
         '100008' => 'Cloud function execution failed.',
-        '100009' => 'Your runtime environment is a cloud function or Heroku, all environment variables will be read directly from the environment, and those variables not found in the environment will be read directly from the .env.example file',
-        '100010' => 'If it is in the Tencent cloud function, you can refer here to modify or add environment variables without rebuilding: https://github.com/luolongfei/freenom/blob/main/resources/screenshot/scf03.png',
-        '100011' => 'If it is in Aliyun cloud function, you can directly edit the environment variable at [Function Details] -> [Function Configuration] -> [Environment Information]',
+        '100009' => 'It is detected that the current running environment is not a normal VPS or the program does not have read/write access to the project root directory, so all environment variables will be read directly from the environment, and those variables not found in the environment will be read directly from the .env.example file.',
         '100012' => 'Because you did not turn on the upgrade alert feature, you will not be notified when a new version is available. Change the value of NEW_VERSION_DETECTION in the .env file to 1 to turn the feature back on.',
         '100013' => 'Your .env file is too old, the program will automatically update the relevant configuration items according to the .env.example file, don\'t panic, this operation will not have any effect on the existing data',
         '100014' => '<green>Backup of .env file completed</green>, old file location is %s/.env.old',
@@ -154,5 +153,9 @@ return [
         '100132' => 'get ip info error:',
         '100133' => "(If you don't want to get a push every time you execute, adjust the value of NOTICE_FREQ in the .env file to 0 so that the application only pushes when there is a renewal operation.)",
         '100134' => '[Server Info]',
+        '100135' => 'It is detected that the Data directory does not have write permission and cannot record the version number. To avoid repeated pushing of upgrade messages, the program will ignore the version check. Please go to https://github.com/luolongfei/freenom/releases to check if there is a new version by yourself',
+        '100136' => 'Pushplus',
+        '100137' => 'Pushplus Failed to send message: <red>%s</red>',
+        '100138' => '<light_green>%s login successfully</light_green>',
     ],
 ];
