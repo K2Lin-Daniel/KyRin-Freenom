@@ -12,10 +12,14 @@
 Documentation: [English version](https://github.com/luolongfei/freenom/blob/main/README_EN.md) | 中文版
 </div>
 
-**Freenom 已经加上了 AWS WAF CAPTCHA 用于各个页面的验证，目前脚本追加了重试机制，可在 `.env` 中自行修改 `MAX_REQUEST_RETRY_COUNT`的值以配置最大重试次数，默认最多重试 32 次，每次至少休眠 20 秒，第 5 次后每次休眠时间根据重试次数递增。根据群友反馈，建议大家把最多重试次数设为 200，可极大增加成功率。更多消息可在热心网友的电报群内交流。**
+Freenom 已经加上了 AWS WAF CAPTCHA 用于各个页面的验证，目前脚本追加了重试机制，可在 `.env` 中自行修改 `MAX_REQUEST_RETRY_COUNT`的值以配置最大重试次数，默认最多重试 200 次，每次至少休眠 20 秒，第 5 次后每次休眠时间根据重试次数递增。 **目前基本能 100% 自动续期成功** 。更多消息可在热心网友的电报群内交流。
 [https://t.me/freenom_auto_renew](https://t.me/freenom_auto_renew)
 
-如果你想要一台性价比高的 vps，年付 10 多刀，可以参考（含 Aff）：[https://go.llfapp.com/cc](https://go.llfapp.com/cc)
+如果你需要一台高性价比的服务器，可以参考 [美国便宜 VPS](https://go.llfapp.com/cc)
+
+这台 VPS IP 干净，解锁奈飞迪斯尼，适合落地：
+
+<a href="https://go.llfapp.com/cc"><img src="https://images.llfapp.com/cc.png" alt="cc.png" border="0" width="380px" height="320px" /></a>
 
 [📢 公告](#-公告)
 
@@ -338,9 +342,10 @@ docker run -d --name freenom --restart always -v $(pwd):/conf -v $(pwd)/logs:/ap
 | TELEGRAM_BOT_TOKEN | 你的`Telegram bot`的`token` |  -  |  否   ||
 | TELEGRAM_BOT_ENABLE | 是否启用`Telegram Bot`推送功能 | `0` |  否   |    `1`：启用<br>`0`：不启用<br>默认不启用，如果设为`1`，则必须设置上面的`TELEGRAM_CHAT_ID`和`TELEGRAM_BOT_TOKEN`变量     |
 | NOTICE_FREQ | 通知频率 | `1` |  否   |                                 `0`：仅当有续期操作的时候<br>`1`：每次执行                                  |
-| NEZHA_SERVER | 哪吒探针服务端的 IP 或域名 |  -  |  否   |
-| NEZHA_PORT | 哪吒探针服务端的端口 |  -  |  否   |  
-| NEZHA_KEY | 哪吒探针客户端专用 Key |  -  |  否   |  
+| NEZHA_SERVER | 哪吒探针服务端的 IP 或域名 |  -  |  否   ||
+| NEZHA_PORT | 哪吒探针服务端的端口 |  -  |  否   ||
+| NEZHA_KEY | 哪吒探针客户端专用 Key |  -  |  否   ||
+| NEZHA_TLS | 哪吒客户SSL/TLS加密 |  -  |  否   |  `1`：启用<br>`0`：不启用  |
 
 **更多配置项含义，请参考 [.env.example](https://github.com/luolongfei/freenom/blob/main/.env.example) 文件中的注释。**
 
@@ -444,7 +449,7 @@ systemctl restart docker
 
 **在看完上行文档的具体内容，并且你确定你行后**，便可点击下方按钮，尝试一键部署：
 
-[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=docker&name=freenom&ports=80;http;/&env[FF_TOKEN]=20190214&env[SHOW_SERVER_INFO]=1&env[MOSAIC_SENSITIVE_INFO]=1&env[FREENOM_USERNAME]=&env[FREENOM_PASSWORD]=&env[MULTIPLE_ACCOUNTS]=&env[TELEGRAM_CHAT_ID]=&env[TELEGRAM_BOT_TOKEN]=&env[TELEGRAM_BOT_ENABLE]=0&env[TOKEN_OR_URL]=[OPTION]%20Token%20or%20URL&env[NEZHA_SERVER]=[OPTION]%20Nezha%20server&env[NEZHA_PORT]=[OPTION]%20Nezha%20port&env[NEZHA_KEY]=[OPTION]%20Nezha%20key&image=docker.io/luolongfei/freenom:koyeb)
+[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?type=docker&name=freenom&ports=80;http;/&env[FF_TOKEN]=20190214&env[SHOW_SERVER_INFO]=1&env[MOSAIC_SENSITIVE_INFO]=1&env[FREENOM_USERNAME]=&env[FREENOM_PASSWORD]=&env[MULTIPLE_ACCOUNTS]=&env[MAX_REQUEST_RETRY_COUNT]=200&env[TELEGRAM_CHAT_ID]=&env[TELEGRAM_BOT_TOKEN]=&env[TELEGRAM_BOT_ENABLE]=0&env[NEZHA_SERVER]=[OPTION]%20Nezha%20server&env[NEZHA_PORT]=[OPTION]%20Nezha%20port&env[NEZHA_KEY]=[OPTION]%20Nezha%20key&env[NEZHA_TLS]=[OPTION]%20Enable%20tls&image=docker.io/luolongfei/freenom:koyeb)
 
 ***
 
@@ -542,11 +547,9 @@ PayPal: [https://www.paypal.me/mybsdc](https://www.paypal.me/mybsdc)
 
 - 解决 企业微信 因送信内容过长被截断问题
 
-#### [v0.5.1](https://github.com/luolongfei/freenom/releases/tag/v0.5.1) - 2022-08-29
+#### [v0.5.4](https://github.com/luolongfei/freenom/releases/tag/v0.5.4) - 2023-12-13
 
-- 支持一键部署至 Koyeb、Heroku 等平台，虽然 Heroku 马上要收费了，但 Koyeb 依然免费
-- 优化在各种环境下的目录读写权限判断
-- 支持给日志或者命令行输出内容中的敏感信息打马赛克，默认不启用
+- 重试次数默认改为 200 次
 
 ### 🍅 本项目的其它语言实现
 
